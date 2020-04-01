@@ -22,6 +22,7 @@ public class Document {
 	private String fileName;
 	
 	@Column(name="FILE_DATA")
+	@Lob
 	private byte[] data;
 	
 	@Column(name="USER_ID")

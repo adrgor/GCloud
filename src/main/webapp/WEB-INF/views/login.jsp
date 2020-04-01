@@ -1,38 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page isELIgnored="false" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-     "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Spring MVC - Hibernate File Upload to Database Demo</title>
-</head>
-<body>
 
-	<c:if test="${param.msg eq 'succ'}">
-		Plik dodany pomyślnie
+<html>
+	<head>
+		<title>GCloud</title>
+		<s:url var="url_css" value="/static/css/style_log_reg.css"/>
+		<s:url var="url_js" value="/static/js/app.js"/>
+		<s:url var="url_jq" value="/static/js/jquery-3.4.1.min.js"/>
+		<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
+        <link href="${url_css}" rel="stylesheet" type="text/css"/>
+        <script src="${url_jq}" type="text/javascript"></script>
+        <script src="${url_js}" type="text/javascript"></script>
+	</head>
+
+	<body>
+	 <c:if test="${param.msg eq 'bad_login'}">
+		<style>
+			input{
+				border: 1px solid red;
+			}
+			
+			input:focus{
+				outline: none;
+				border: 2px solid red;
+			}
+			#login-button{
+				border: 0px;
+			}
+		</style>
 	</c:if>
 	
-	<a href="myFiles">Show your files</a>
-
-    <div align="center">
-        <h1>Spring MVC - Hibernate File Upload to Database Demo</h1>
-        <form method="post" action="doUpload" enctype="multipart/form-data">
-            <table border="0">
-                <tr>
-                    <td>Pick file #1:</td>
-                    <td><input type="file" name="fileUpload" size="50" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center"><input type="submit" value="Upload" /></td>
-                </tr>
-            </table>
-        </form>
-        
-        <form action="logout" method="post">
-    		<button type="submit">Logout</button>
-		</form>
-    </div>
-</body>
+		<div class="form">
+			<p id="gcloud">GCLOUD</p>
+			<!-- <p class="msg_err">Bad login or password</p> -->
+			<form action="login" method="post">	
+				<c:if test="${param.msg eq 'bad_login'}">
+					<p class="msg-err">Bad username or password</p>
+				</c:if>
+				<input type="text" name="loginName" placeholder="Username"></input>
+				<input type="password" name="password" placeholder="Password">
+				<p id="forgot-pass"> <a href="#">Forgot password?</a> </p>
+				<input id="login-button" type="submit" value="LOGIN">
+				<p id="no-acc">Don't have an account?</p>
+				<p id="create"> <a href="./register">CREATE</a> </p>
+			</form>
+		</div>
+	</body>
 </html>
